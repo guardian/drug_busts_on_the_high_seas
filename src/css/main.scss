@@ -1,0 +1,125 @@
+@import "mq";
+@import "fonts";
+@import "palette";
+
+// Uncomment for embeds
+//@import "embed";
+// Uncomment for full screen (including immersive article main media)
+//@import "fullscreen";
+
+.element-atom,
+.interactive-atom {
+    margin: 0 !important;
+    position: relative;
+}
+
+#data-wrapper {
+	width: 100%;
+	max-width: 960px;
+}
+
+.row {
+	width: 100%;
+}
+
+#map_container {
+	width: 100%;
+	position: relative;
+}
+
+#app {
+	width: 100%;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+
+    @include mq($from: tablet) {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+    }
+
+}
+
+.map path {
+    fill: lightgrey;
+    stroke: #fff;
+    stroke-width: 4;
+}
+
+.path {
+	animation: dash 5s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
+
+#tooltip {
+
+	background-color: #fff;
+	color: #000;
+	padding: 6px 10px 12px 10px!important;
+	border: 2px solid #000;
+	box-shadow: 4px 4px;
+	z-index: 999;
+
+
+    @include mq($until: tablet) {
+		box-sizing: border-box;
+		width: calc(100% - 40px);
+		margin-left: 20px;
+		display: inline-block;
+		position: relative;
+		margin-top: 20px;
+    }
+
+    @include mq($from: tablet) {
+		position: absolute;
+		top:20px;
+		left:20px;
+		width:400px;
+    }
+
+}
+
+.labels {
+	font-family: 'Guardian Text Sans Web',Arial;
+	font-size:12px;
+	fill:black;
+}
+
+.chartTitle {
+	box-sizing: border-box;
+	font-size:22px;
+	padding-left:10px;
+	font-weight:600;
+	color:#000;
+}
+
+.chartNotes {
+	font-size: 18px;
+	color: #767676;
+	padding:10px;
+	font-family: 'Guardian Text Sans Web', 'Agate Sans', sans-serif;
+}
+
+.colour_key {
+	width: 100%;
+}
+
+.circle_busted {
+	width: 30px;
+	height: 30px;
+	border-radius: 15px;
+	background-image: url("<%= path %>/assets/bust.svg");
+	margin-right: 5px;
+	float: left;
+}
+
+.keyText {
+	font-size: 14px;
+	margin-top: -10px;
+	color: black;
+}
