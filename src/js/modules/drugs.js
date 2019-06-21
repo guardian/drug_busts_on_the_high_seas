@@ -110,11 +110,28 @@ export class Drugs {
             .attr("d", path)
             .attr("fill", "lightgrey")
 
+        g.append("rect")
+            .attr("width", self.width)
+            .attr("height", self.height)
+            .attr("opacity",0)
+            .on("click", reset)       
+
         for (var i = 0; i < self.database.length; i++) {
 
             this.narco(self.database[i], i)
 
         }
+
+        function reset(d,i) {
+            d3.selectAll('.circle').style("opacity", 0.3)
+
+            d3.selectAll('.labels').style("display", "none")
+
+            d3.selectAll('.iconic').style("display", "none")
+
+            d3.selectAll('.path').attr("opacity", 0.3).attr("stroke-dasharray", 0).attr("stroke-width", 1)
+        }
+
 
     }
 
@@ -136,7 +153,7 @@ export class Drugs {
                         .attr("stroke", "#197caa")
                         .attr("fill", "none")
                         .attr("opacity", 0.3)
-
+                  
         g.selectAll("circle")
             .data(data["node-coordinates"])
             .enter()
@@ -219,6 +236,7 @@ export class Drugs {
             self.info.innerHTML = html
 
         }
+
 
     }
 
