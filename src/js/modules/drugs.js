@@ -9,6 +9,8 @@ d3.selection.prototype.moveToFront = function() {
   });
 };
 
+var current = null;
+
 export class Drugs {
 
 	constructor(data, mapdata) {
@@ -68,6 +70,8 @@ export class Drugs {
                 self.height = self.width * 0.6
 
                 self.map()
+
+
 
             }, 200);
 
@@ -203,12 +207,36 @@ export class Drugs {
             .text( (d,i) => {
                 return (data["node-text"][i]) ? data["node-text"][i].trim() : ""
             })
-            .style("display", "none")
+            .style("display", "none") 
+
+        if (current != null) {
+
+            var target = current
+            
+            d3.selectAll(`.circle_${target}`).each(function(d, i) {
+                var opacity = (i===0) ? 0 : (i===data["node-coordinates"].length - 1) ? 0 : 1 ;
+                d3.select(this).style("opacity", opacity)
+            })
+
+            d3.selectAll(`.path_${target}`).attr("opacity", 1).attr("stroke-dasharray", 2).attr("stroke-width", 3)
+
+            d3.selectAll(`.icon_${target}`).style("display", "block")
+
+            d3.selectAll(`.label_${target}`).style("display", "block")
+
+            d3.select(`.group_${target}`).moveToFront()
+
+            var html = (self.database[target]) ? self.toolbelt.mustache(template, self.database[target]) : "" ;
+
+            self.info.innerHTML = html
+        }   
 
 
         function busted(d, i) {
 
             var target = d3.select(this).attr("data-id")
+            
+            current = target;
 
             d3.selectAll('.circle').style("opacity", 0.3)
 
